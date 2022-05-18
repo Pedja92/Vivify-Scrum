@@ -1,0 +1,19 @@
+{
+  "addNewOrganizationButton": "div[class='vs-c-my-organization vs-c-my-organization--add-new not-sortable']",
+  "organizationNameTextBox": "input[name='name']",
+  "cancelButton": "button[name='prev_btn']",
+  "nextButton": "button[name='next_btn']",
+  "uploadLogo": "[class='el-upload-dragger']",
+  "previousButton": "[name='prev_btn']",
+  "createButton": "[name='next_btn']",
+  "editOrganization": "span[title='Edit Organization']",
+  "organizationNameTextBoxOnEdit": "[class='el-input__inner']",
+  "saveButtonOnEdit": "[class='el-icon-check']",
+  "archiveOrganization": "span[title='Archive Organization']",
+  "confirmArchivingOrganization": "[name='save-btn']",
+  "unarchiveOrganization": "span[title='Reopen Organization']",
+  "deleteArchivedOrganization": "span[title='Delete Organization']",
+  "passwordField": "[placeholder='Enter current password']",
+  "confirmDeletingOrganization": "[name='save-btn']",
+  "selectOrganization": "[class='vs-c-my-organization organization-list-item']"
+}

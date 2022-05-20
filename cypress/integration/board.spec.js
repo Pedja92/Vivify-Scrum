@@ -12,6 +12,7 @@ describe("Create boards", () => {
     cy.get(login.loginButton).click();
     cy.wait(5000);
   });
+
   it("Create new Scrum board", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -25,6 +26,7 @@ describe("Create boards", () => {
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
   });
+
   it("Create new Kanban board", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -39,6 +41,7 @@ describe("Create boards", () => {
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
   });
+
   it("Navigate back through board creation", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -53,6 +56,7 @@ describe("Create boards", () => {
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.previousButton).click();
   });
+
   it("Trying to create board withou title", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -61,6 +65,7 @@ describe("Create boards", () => {
     cy.get(boardLocators.addNewBoard).click();
     cy.get(boardLocators.nextAndFinishButton).click();
   });
+
   it("Open board", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -68,16 +73,7 @@ describe("Create boards", () => {
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.selectBoard).click();
   });
-  //   it("Add team member", () => {
-  //     cy.visit("baseUrl");
-  //     cy.get(headerLocators.displayAllOrganizations).click();
-  //     cy.get(organization.selectOrganization).click();
-  //     cy.get(boardLocators.confirmOnPopUpModal).click();
-  //     cy.get(boardLocators.addTeamMember).click();
-  //     cy.get(boardLocators.selectTeamMember);
-  //     cy.get(boardLocators.textBoxForTeamMemberMail).type("pp3@gmail.com");
-  //     cy.get(boardLocators.inviteButton).click();
-  //   });
+
   it("Archive board", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -88,6 +84,7 @@ describe("Create boards", () => {
     cy.get(sideMenuLocators.archiveBoard).click();
     cy.get(sideMenuLocators.yesButton).click();
   });
+
   it("Unarchive button", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();
@@ -97,6 +94,7 @@ describe("Create boards", () => {
     cy.get(boardLocators.reopenBoard).click();
     cy.get(sideMenuLocators.yesButton).click();
   });
+
   it("Delete board", () => {
     cy.visit("baseUrl");
     cy.get(headerLocators.displayAllOrganizations).click();

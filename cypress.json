@@ -1,3 +1,4 @@
 {
-  "baseUrl": "https://cypress.vivifyscrum-stage.com/"
+  "baseUrl": "https://cypress.vivifyscrum-stage.com/my-organizations",
+  "loginUrl": "https://cypress.vivifyscrum-stage.com/login"
 }

@@ -15,5 +15,6 @@
   "deleteArchivedOrganization": "span[title='Delete Organization']",
   "passwordField": "[placeholder='Enter current password']",
   "confirmDeletingOrganization": "[name='save-btn']",
-  "selectOrganization": "[class='vs-c-my-organization organization-list-item']"
+  "selectOrganization": "[class='vs-c-my-organization organization-list-item']",
+  "createOrganizationModal": "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-organization']"
 }

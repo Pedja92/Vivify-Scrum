@@ -53,10 +53,13 @@ describe("Create boards", () => {
   //     }
   //   });
   beforeEach(() => {
+    const username = Cypress.env("username");
+    const password = Cypress.env("password");
     cy.visit("baseUrl");
-    cy.get(login.emailAdressInputField).type("pp3@gmail.com");
-    cy.get(login.passwordInputField).type("03091992");
+    cy.get(login.emailAdressInputField).type(username);
+    cy.get(login.passwordInputField).type(password);
     cy.get(login.loginButton).click();
+    cy.wait(4000);
 
     // cy.get(headerLocators.displayAllOrganizations).click();
     // cy.get(organization.addNewOrganizationButton).click();
@@ -68,8 +71,7 @@ describe("Create boards", () => {
   });
 
   it("Create new Scrum board", () => {
-    cy.get(headerLocators.displayAllOrganizations).click();
-
+    cy.visit("/my-organizations");
     cy.get(organization.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.addNewBoard).click();
@@ -80,10 +82,8 @@ describe("Create boards", () => {
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
-    cy.wait(3000);
-    cy.get("[class='vs-l-organization__title vs-u-cursor--default']").click();
-    cy.wait(3000);
-    cy.get("[class='vs-c-organization-boards__item']")
+
+    cy.get(boardLocators.scrumBoardCard)
       .should("be.visible")
       .and("contain.text", "Pedja")
       .and("contain.text", "Active Sprints")
@@ -91,21 +91,29 @@ describe("Create boards", () => {
   });
 
   it("Create new Kanban board", () => {
-    cy.get(headerLocators.displayAllOrganizations).click();
+    cy.visit("/my-organizations");
     cy.get(organization.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.addNewBoard).click();
-    cy.get(boardLocators.boardTitleTextBox).type("Pedja2");
+    cy.get(boardLocators.boardTitleTextBox).type("Pedja");
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.selectKanbanBoardType).click();
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
+    cy.wait(2000);
     cy.get(boardLocators.nextAndFinishButton).click();
+    cy.wait(2000);
+    cy.go("back");
+    cy.get(boardLocators.kanbanBoardCard)
+      .should("be.visible")
+      .and("contain.text", "Pedja")
+      .and("not.contain", "Active Sprints")
+      .and("contain.text", "Members");
   });
 
   it("Navigate back through board creation", () => {
-    cy.get(headerLocators.displayAllOrganizations).click();
+    cy.visit("/my-organizations");
     cy.get(organization.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.addNewBoard).click();
@@ -120,13 +128,13 @@ describe("Create boards", () => {
     cy.get(boardLocators.previousButton).click();
     cy.get(boardLocators.previousButton).click();
 
-    cy.get(
-      "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-board']"
-    ).should("be.visible");
+    cy.get(boardLocators.addNewBoardModal)
+      .should("be.visible")
+      .and("contain.text", "New Board");
   });
 
   it("Trying to create board withou title", () => {
-    cy.get(headerLocators.displayAllOrganizations).click();
+    cy.visit("/my-organizations");
     cy.get(organization.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.addNewBoard).click();
@@ -135,18 +143,18 @@ describe("Create boards", () => {
   });
 
   it("Open board", () => {
-    cy.get(headerLocators.displayAllOrganizations).click();
+    cy.visit("/my-organizations");
     cy.get(organization.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.selectBoard).click();
 
-    cy.get("[class='vs-c-col__head']").should(($element) => {
+    cy.get(boardLocators.boarsDetailPageHeader).should(($element) => {
       expect($element[0]).to.contain.text("Backlog");
       expect($element[1]).to.contain.text("Sprint 1");
     });
   });
 
-  it.only("Archive board", () => {
+  it("Archive board", () => {
     cy.get(headerLocators.displayAllOrganizations).click();
     cy.get(organization.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();

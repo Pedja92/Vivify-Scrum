@@ -16,5 +16,16 @@
   "passwordField": "[placeholder='Enter current password']",
   "confirmDeletingOrganization": "[name='save-btn']",
   "selectOrganization": "[class='vs-c-my-organization organization-list-item']",
-  "createOrganizationModal": "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-organization']"
+  "createOrganizationModal": "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-organization']",
+
+  "allOrganizationPlaceholder": "[class='vs-c-my-organizations-item-wrapper']",
+  "organizationCard": "[class='vs-c-my-organizations-item-wrapper'] [class='vs-c-my-organization organization-list-item']",
+  "organizationCardHeader": "[class='vs-c-my-organization__header'] span",
+  "organizationCardBody": "[class='vs-c-my-organization__body'] li",
+  "organizationCardFooter": "[class='vs-c-my-organization__footer'] li",
+  "addNewOrganizationModalHeader": "[class='vs-c-modal__title'] span",
+  "addNewOrganizationModalBody": "[class='vs-c-modal__body']",
+  "achivedOrganizationsPlaceholderHeader": "[class='vs-c-my-organizations__header vs-c-organization__header']",
+  "achivedOrganizationCard": "[class='vs-c-my-organizations-item-wrapper vs-c-my-organizations-item-wrapper--archived'] [class='vs-c-my-organization organization-list-item']",
+  "emptyOrganizationBoardPlaceholderWelcomeMessage": "[class='vs-c-my-organization vs-c-my-organization-no-organization__popup not-sortable']"
 }

@@ -1,4 +1,7 @@
 {
-  "baseUrl": "https://cypress.vivifyscrum-stage.com/my-organizations",
-  "loginUrl": "https://cypress.vivifyscrum-stage.com/login"
+  "baseUrl": "https://cypress.vivifyscrum-stage.com",
+  "env": {
+    "username": "pp3@gmail.com",
+    "password": "03091992"
+  }
 }

@@ -1,0 +1,11 @@
+{
+  "emailAdressInputField": "input[name='email']",
+  "passwordInputField": "input[name='password']:not([style*='display: none'])",
+  "forgotPasswordLink": "login-forgot-password-link",
+  "loginButton": "div[class='vs-l-page vs-l-login-page'] div[class='vs-u-text--left']",
+  "backToHomeLink": "[data-cy='login-homepage-link']",
+  "signUpLink": "[data-cy='login-sign-up-link']",
+  "loginModal": "[class='vs-c-auth-modal__body vs-u-center']",
+
+  "productSelectionModal": "[class='vsp-c-pricing-plan-list vsp-c-pricing-plan-list--annual is-active']"
+}

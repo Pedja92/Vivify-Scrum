@@ -1,0 +1,7 @@
+{
+  "baseUrl": "https://cypress.vivifyscrum-stage.com",
+  "env": {
+    "username": "pp3@gmail.com",
+    "password": "03091992"
+  }
+}

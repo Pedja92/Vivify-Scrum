@@ -1,0 +1,11 @@
+{
+  "configurationButton": "[data-cy='organization-configuration']",
+  "deleteButton": "[class='vs-c-btn vs-c-btn--warning vs-c-btn--spaced']",
+  "passwordField": "[placeholder='Enter current password']",
+  "noButton": "[name='cancel-btn']",
+  "yesbutton": "[name='save-btn']",
+  "addNew": "[class='vs-c-list__btn el-tooltip vs-c-list-btn--new-workspace']",
+  "boardConfiguration": "[data-cy='board-configuration']",
+  "archiveBoard": "[class='vs-c-btn vs-c-btn--success vs-c-btn--spaced']",
+  "yesButton": "[name='save-btn']"
+}

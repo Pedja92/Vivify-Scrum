@@ -1,0 +1,22 @@
+{
+  "addNewBoard": "[class='vs-c-organization-boards__item--add-new']",
+  "boardTitleTextBox": "[name='name']",
+  "nextAndFinishButton": "[name='next_btn']",
+  "selectScrumBoardType": "[name='type_scrum']",
+  "selectKanbanBoardType": "[name='type_kanban']",
+  "previousButton": "[name='prev_btn']",
+  "selectBoard": "[class='vs-c-organization-boards__item']",
+  "addTeamMember": "[class='vs-c-boards-item__content-section-title'] [class='vs-c-icon']",
+  "selectTeamMember": "[class='vs-c-team-member__avatar']",
+  "textBoxForTeamMemberMail": "[class='multiselect__tags']",
+  "inviteButton": "[name='save-btn']",
+  "selectArchivedBoard": "[class='vs-c-organization-boards__item vs-c-organization-boards__item--archived']",
+  "reopenBoard": "[class='vs-c-btn vs-c-btn--primary vs-c-btn--spaced vs-u-gap--left']",
+  "deleteBoard": "[class='vs-c-btn vs-c-btn--warning vs-c-btn--spaced vs-u-gap--left']",
+  "confirmOnPopUpModal": "[class='vs-c-btn vs-c-btn--primary vs-c-btn--lg vs-u-font-sm vs-c-modal--features-confirm-button']",
+
+  "allBoardsPlaceholderHeader": "[class='vs-c-organization__header vs-u-display--flex vs-u-space-between-flex vs-u-align-center']",
+  "scrumBoardCard": "[class='vs-c-organization-boards__item']",
+  "kanbanBoardCard": "[class='vs-c-organization-boards__item vs-c-organization-boards__item--kanban']",
+  "addNewBoardModal": "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-board']"
+}

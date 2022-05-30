@@ -1,0 +1,22 @@
+{
+  "name": "vivify",
+  "version": "1.0.0",
+  "description": "Automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pedja92/Vivify-Scrum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pedja92/Vivify-Scrum/issues"
+  },
+  "homepage": "https://github.com/Pedja92/Vivify-Scrum#readme",
+  "dependencies": {
+    "cypress": "^9.6.1"
+  }
+}

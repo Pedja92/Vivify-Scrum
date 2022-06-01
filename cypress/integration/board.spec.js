@@ -3,6 +3,9 @@ import login from "../pages/loginModal.json";
 import headerLocators from "../pages/header.json";
 import boardLocators from "../pages/board.json";
 import sideMenuLocators from "../pages/sideMenu.json";
+import Boards from "../support/classes/boards/index.js";
+
+const boards = new Boards();
 
 describe("Create boards", () => {
   // const endpoint =
@@ -53,134 +56,43 @@ describe("Create boards", () => {
   //     }
   //   });
   beforeEach(() => {
-    const username = Cypress.env("username");
-    const password = Cypress.env("password");
-    cy.visit("baseUrl");
-    cy.get(login.emailAdressInputField).type(username);
-    cy.get(login.passwordInputField).type(password);
-    cy.get(login.loginButton).click();
-    cy.wait(4000);
-
-    // cy.get(headerLocators.displayAllOrganizations).click();
-    // cy.get(organization.addNewOrganizationButton).click();
-    // cy.get(organization.organizationNameTextBox).type("Predrag");
-    // cy.get(organization.nextButton).click();
-    // cy.get(organization.createButton).click();
-
-    //cy.wait(8000);
+    boards.setupTests();
   });
 
   it("Create new Scrum board", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.addNewBoard).click();
-    cy.get(boardLocators.boardTitleTextBox).type("Pedja");
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.selectScrumBoardType).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-
-    cy.get(boardLocators.scrumBoardCard)
-      .should("be.visible")
-      .and("contain.text", "Pedja")
-      .and("contain.text", "Active Sprints")
-      .and("contain.text", "Members");
+    boards.createScrumBoard("Pedja");
+    boards.verifyCreatingScrumBoard("Pedja", "Active Sprints", "Members");
   });
 
   it("Create new Kanban board", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.addNewBoard).click();
-    cy.get(boardLocators.boardTitleTextBox).type("Pedja");
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.selectKanbanBoardType).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.wait(2000);
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.wait(2000);
-    cy.go("back");
-    cy.get(boardLocators.kanbanBoardCard)
-      .should("be.visible")
-      .and("contain.text", "Pedja")
-      .and("not.contain", "Active Sprints")
-      .and("contain.text", "Members");
+    boards.createKanbanBoard("Pedja");
+    boards.verifyCreatingKanbanBoard("Pedja", "Active Sprints", "Members");
   });
 
   it("Navigate back through board creation", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.addNewBoard).click();
-    cy.get(boardLocators.boardTitleTextBox).type("Pedja");
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.selectKanbanBoardType).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.nextAndFinishButton).click();
-    cy.get(boardLocators.previousButton).click();
-    cy.get(boardLocators.previousButton).click();
-    cy.get(boardLocators.previousButton).click();
-    cy.get(boardLocators.previousButton).click();
-
-    cy.get(boardLocators.addNewBoardModal)
-      .should("be.visible")
-      .and("contain.text", "New Board");
+    boards.navigateBackThroughModal("Pedja");
+    boards.verifySuccessfullNavigateBackThroughModal("New Board");
   });
 
-  it("Trying to create board withou title", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.addNewBoard).click();
-
-    cy.get(boardLocators.nextAndFinishButton).should("be.disabled");
+  it("Trying to create board without title", () => {
+    boards.createBoardWithoutTitle();
+    boards.verifyUnsuccessfullBoardCreatingWithoutName();
   });
 
-  it("Open board", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.selectBoard).click();
-
-    cy.get(boardLocators.boarsDetailPageHeader).should(($element) => {
-      expect($element[0]).to.contain.text("Backlog");
-      expect($element[1]).to.contain.text("Sprint 1");
-    });
+  it.only("Open board", () => {
+    boards.openBoard();
+    boards.verifySuccessfullBoardOpening("Backlog", "Sprint 1");
   });
 
-  it("Archive board", () => {
-    cy.get(headerLocators.displayAllOrganizations).click();
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.selectBoard).click();
-    cy.get(sideMenuLocators.boardConfiguration).click();
-    cy.get(sideMenuLocators.archiveBoard).click();
-    cy.get(sideMenuLocators.yesButton).click();
+  it("Archive Scrum board", () => {
+    boards.achiveScrumBoard();
   });
 
   it("Unarchive button", () => {
-    cy.visit("baseUrl");
-    cy.get(headerLocators.displayAllOrganizations).click();
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.selectArchivedBoard).click();
-    cy.get(boardLocators.reopenBoard).click();
-    cy.get(sideMenuLocators.yesButton).click();
+    boards.unachiveScrumBoard();
   });
 
   it("Delete board", () => {
-    cy.visit("baseUrl");
-    cy.get(headerLocators.displayAllOrganizations).click();
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(boardLocators.selectArchivedBoard).click();
-    cy.get(boardLocators.deleteBoard).click();
-    cy.get(sideMenuLocators.yesButton).click();
+    boards.deleteScrumBoard();
   });
 });

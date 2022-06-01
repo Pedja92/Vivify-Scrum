@@ -2,6 +2,9 @@ import organization from "../pages/organization.json";
 import login from "../pages/loginModal.json";
 import headerLocators from "../pages/header.json";
 import boardLocators from "../pages/board.json";
+import Organization from "../support/classes/organizations/index.js";
+
+const organization1 = new Organization();
 
 describe("Create new organization", () => {
   // const endpoint =
@@ -53,131 +56,67 @@ describe("Create new organization", () => {
   //     }
   //   });
   beforeEach(() => {
-    const username = Cypress.env("username");
-    const password = Cypress.env("password");
-    cy.visit("/login");
-    cy.get(login.emailAdressInputField).type(username);
-    cy.get(login.passwordInputField).type(password);
-    cy.get(login.loginButton).click();
-    cy.wait(5000);
+    organization1.setupTests();
   });
 
   it("Create organization", () => {
     cy.visit("/my-organizations");
-    cy.get(organization.addNewOrganizationButton).click();
-    cy.get(organization.organizationNameTextBox).type("Predrag");
-    cy.get(organization.nextButton).click();
-    cy.get(organization.createButton).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-    cy.get(headerLocators.displayAllOrganizations).click();
-    cy.get(organization.selectOrganization).should(($organizationModal) => {
-      expect($organizationModal).to.contain("Predrag");
-      expect($organizationModal).to.contain("Projects");
-      expect($organizationModal).to.contain("Boards");
-    });
-    cy.get(organization.organizationCardHeader).should(($organizationModal) => {
-      expect($organizationModal.first()).attr("title", "Edit Organization");
-      expect($organizationModal.last()).attr("title", "Archive Organization");
-    });
-    cy.get(organization.organizationCardBody).should(($organizationModal) => {
-      expect($organizationModal[0]).attr("title", "Add new Project");
-      expect($organizationModal[1]).attr("title", "Add new Board");
-    });
-    cy.get(organization.organizationCardFooter).should(
-      "have.attr",
-      "title",
+    organization1.createOrganization("Predrag");
+
+    organization1.verifyCreateOrganization(
+      "Predrag",
+      "Projects",
+      "Boards",
+      "Edit Organization",
+      "Archive Organization",
+      "Add new Project",
+      "Add new Board",
       "Predrag Pejovic"
     );
   });
 
   it("Create organization with empty name", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.addNewOrganizationButton).click();
-    cy.get(organization.nextButton).should("be.disabled");
+    organization1.createOrganizationWithEmptyName();
+    organization1.verifyUnsuccessfullCreatingOrganizationWithEmpyName();
   });
 
   it("Navigate back through modal", () => {
-    cy.visit("/my-organizations");
-    cy.get(headerLocators.displayAllOrganizations).click();
-    cy.get(organization.addNewOrganizationButton).click();
-    cy.get(organization.organizationNameTextBox).type("Predrag");
-    cy.get(organization.nextButton).click();
-    cy.get(organization.previousButton).click();
-
-    cy.get(organization.addNewOrganizationModalHeader)
-      .should("be.visible")
-      .and("have.text", "New Organization");
-
-    cy.get(organization.addNewOrganizationModalBody).should("be.visible");
-    cy.get(organization.cancelButton).click();
-    cy.get(organization.organizationCard).should("have.length", 1);
+    organization1.navigateBackThroughModal("Predrag");
+    organization1.verifySuccessfullNavigatingBackThroughModal(
+      "New Organization"
+    );
   });
 
   it("Edit Organization name", () => {
-    cy.visit("/my-organizations");
-    //cy.get(headerLocators.displayAllOrganizations).click();
-    cy.get(organization.editOrganization).click();
-    cy.get(organization.organizationNameTextBoxOnEdit).clear().type("Pejovic");
-    cy.get(organization.saveButtonOnEdit).click();
-    cy.get(organization.organizationCardHeader).should(
-      "contain.text",
+    organization1.editOrganizationName("Pejovic");
+    organization1.verifySuccessfullEditingOrganizationName("Pejovic");
+  });
+
+  it("Archive organization", () => {
+    organization1.achiveOrganization();
+    organization1.verifySuccessfullOrganizationAchiving(
+      "Archived Organizations",
       "Pejovic"
     );
   });
 
-  it("Archive organization", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.archiveOrganization).click({ force: true });
-    cy.get(organization.confirmArchivingOrganization).click();
-
-    cy.get(organization.achivedOrganizationsPlaceholderHeader)
-      .should("be.visible")
-      .and("contain.text", "Archived Organizations");
-    cy.get(organization.allOrganizationPlaceholder).should("have.length", 0);
-    cy.get(organization.achivedOrganizationCard)
-      .should("have.length", 2)
-      .and("contains.text", "Predrag");
-  });
-
   it("Unarchive organization", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.unarchiveOrganization).click({ force: true });
-    cy.get(organization.confirmArchivingOrganization).click();
-
-    cy.get(organization.organizationCard)
-      .should("have.length", 1)
-      .and("contains.text", "Predrag");
+    organization1.unachiveOrganization();
+    organization1.verifySuccessfullOrganizationUnachiving("Pejovic");
   });
 
   it("Delete archived organization", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.archiveOrganization).click({ force: true });
-    cy.get(organization.confirmArchivingOrganization).click();
-    cy.get(organization.deleteArchivedOrganization).click({ force: true });
-    cy.get(organization.passwordField).type("03091992");
-    cy.get(organization.confirmDeletingOrganization).click();
-    cy.get(organization.organizationCard).should("have.length", 0);
-
-    cy.get(organization.emptyOrganizationBoardPlaceholderWelcomeMessage)
-      .should("be.visible")
-      .and("contains.text", "Welcome to the team! Welcome to VivifyScrum!");
+    organization1.deleteAchivedOrganization("03091992");
+    organization1.verifySuccessfullOrganizationDeleting(
+      "Welcome to the team! Welcome to VivifyScrum!"
+    );
   });
 
   it("Open Organization detail page", () => {
-    cy.visit("/my-organizations");
-    cy.get(organization.addNewOrganizationButton).click();
-    cy.get(organization.organizationNameTextBox).type("Predrag");
-    cy.get(organization.nextButton).click();
-    cy.get(organization.createButton).click();
-    cy.get(organization.selectOrganization).click();
-    cy.get(boardLocators.confirmOnPopUpModal).click();
-
-    cy.get(boardLocators.allBoardsPlaceholderHeader).should(
-      "contain.text",
-      "Active Boards"
+    organization1.openOrganization("Predrag");
+    organization1.verifyOpeningOrganizationDetailPage(
+      "Active Boards",
+      "Add new Board"
     );
-    cy.get(boardLocators.addNewBoard)
-      .should("be.visible")
-      .and("contain.text", "Add new Board");
   });
 });

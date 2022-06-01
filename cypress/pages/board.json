@@ -18,5 +18,6 @@
   "allBoardsPlaceholderHeader": "[class='vs-c-organization__header vs-u-display--flex vs-u-space-between-flex vs-u-align-center']",
   "scrumBoardCard": "[class='vs-c-organization-boards__item']",
   "kanbanBoardCard": "[class='vs-c-organization-boards__item vs-c-organization-boards__item--kanban']",
-  "addNewBoardModal": "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-board']"
+  "addNewBoardModal": "[class='vs-c-modal vs-c-modal--starter vs-c-modal--create-board']",
+  "boarsDetailPageHeader": "[class='vs-c-col__head']"
 }

@@ -9,14 +9,13 @@ const utils = new Utils();
 
 class Boards {
   setupTests() {
-    const username = Cypress.env("username");
-    const password = Cypress.env("password");
     cy.visit("/login");
-    cy.get(loginLocators.emailAdressInputField).type(username);
-    cy.get(loginLocators.passwordInputField).type(password);
+    cy.get(loginLocators.emailAdressInputField).type(Cypress.env("username"));
+    cy.get(loginLocators.passwordInputField).type(Cypress.env("password"));
     cy.get(loginLocators.loginButton).click();
     cy.wait(4000);
   }
+
   createScrumBoard(boardName) {
     cy.visit("/my-organizations");
     cy.get(organizationLocators.selectOrganization).click();
@@ -31,6 +30,7 @@ class Boards {
     cy.wait(2000);
     cy.get(boardLocators.nextAndFinishButton).click();
   }
+
   createKanbanBoard(boardName) {
     cy.visit("/my-organizations");
     cy.get(organizationLocators.selectOrganization).click();
@@ -42,11 +42,11 @@ class Boards {
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.get(boardLocators.nextAndFinishButton).click();
-    //cy.wait(2000);
     cy.get(boardLocators.nextAndFinishButton).click();
     cy.wait(2000);
     cy.go("back");
   }
+
   navigateBackThroughModal(boardName) {
     cy.visit("/my-organizations");
     cy.get(organizationLocators.selectOrganization).click();
@@ -70,13 +70,15 @@ class Boards {
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.addNewBoard).click();
   }
+
   openBoard() {
     cy.visit("/my-organizations");
     cy.get(organizationLocators.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.selectBoard).click();
   }
-  achiveScrumBoard() {
+
+  archiveScrumBoard() {
     cy.visit("/my-organizations");
     //cy.get(headerLocators.displayAllOrganizations).click();
     cy.get(organizationLocators.selectOrganization).click();
@@ -87,9 +89,8 @@ class Boards {
     cy.get(sideMenuLocators.yesButton).click();
   }
 
-  unachiveScrumBoard() {
+  unarchiveScrumBoard() {
     cy.visit("/my-organizations");
-    // cy.get(headerLocators.displayAllOrganizations).click();
     cy.get(organizationLocators.selectOrganization).click();
     cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.selectArchivedBoard).click();
@@ -99,9 +100,7 @@ class Boards {
 
   deleteScrumBoard() {
     cy.visit("/my-organizations");
-    //cy.get(headerLocators.displayAllOrganizations).click();
     cy.get(organizationLocators.selectOrganization).click();
-    //cy.get(boardLocators.confirmOnPopUpModal).click();
     cy.get(boardLocators.selectArchivedBoard).click();
     cy.get(boardLocators.deleteBoard).click();
     cy.get(sideMenuLocators.yesButton).click();
@@ -122,14 +121,17 @@ class Boards {
       .and("not.contain", activeSprintTitle)
       .and("contain.text", membersTitle);
   }
+
   verifySuccessfullNavigateBackThroughModal(newBoardModalTitle) {
     cy.get(boardLocators.addNewBoardModal)
       .should("be.visible")
       .and("contain.text", newBoardModalTitle);
   }
+
   verifyUnsuccessfullBoardCreatingWithoutName() {
     cy.get(boardLocators.nextAndFinishButton).should("be.disabled");
   }
+
   verifySuccessfullBoardOpening(backlogTitle, sprintTitle) {
     cy.get(boardLocators.boarsDetailPageHeader).should(($element) => {
       expect($element[0]).to.contain.text(backlogTitle);

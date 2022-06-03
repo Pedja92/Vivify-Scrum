@@ -79,17 +79,17 @@ describe("Create boards", () => {
     boards.verifyUnsuccessfullBoardCreatingWithoutName();
   });
 
-  it.only("Open board", () => {
+  it("Open board", () => {
     boards.openBoard();
     boards.verifySuccessfullBoardOpening("Backlog", "Sprint 1");
   });
 
   it("Archive Scrum board", () => {
-    boards.achiveScrumBoard();
+    boards.archiveScrumBoard();
   });
 
   it("Unarchive button", () => {
-    boards.unachiveScrumBoard();
+    boards.unarachiveScrumBoard();
   });
 
   it("Delete board", () => {

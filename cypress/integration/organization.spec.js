@@ -4,7 +4,7 @@ import headerLocators from "../pages/header.json";
 import boardLocators from "../pages/board.json";
 import Organization from "../support/classes/organizations/index.js";
 
-const organization1 = new Organization();
+const organization = new Organization();
 
 describe("Create new organization", () => {
   // const endpoint =
@@ -56,14 +56,14 @@ describe("Create new organization", () => {
   //     }
   //   });
   beforeEach(() => {
-    organization1.setupTests();
+    organization.setupTests();
   });
 
   it("Create organization", () => {
     cy.visit("/my-organizations");
-    organization1.createOrganization("Predrag");
+    organization.createOrganization("Predrag");
 
-    organization1.verifyCreateOrganization(
+    organization.verifyCreateOrganization(
       "Predrag",
       "Projects",
       "Boards",
@@ -76,45 +76,45 @@ describe("Create new organization", () => {
   });
 
   it("Create organization with empty name", () => {
-    organization1.createOrganizationWithEmptyName();
-    organization1.verifyUnsuccessfullCreatingOrganizationWithEmpyName();
+    organization.createOrganizationWithEmptyName();
+    organization.verifyUnsuccessfullCreatingOrganizationWithEmpyName();
   });
 
   it("Navigate back through modal", () => {
-    organization1.navigateBackThroughModal("Predrag");
-    organization1.verifySuccessfullNavigatingBackThroughModal(
+    organization.navigateBackThroughModal("Predrag");
+    organization.verifySuccessfullNavigatingBackThroughModal(
       "New Organization"
     );
   });
 
   it("Edit Organization name", () => {
-    organization1.editOrganizationName("Pejovic");
-    organization1.verifySuccessfullEditingOrganizationName("Pejovic");
+    organization.editOrganizationName("Pejovic");
+    organization.verifySuccessfullEditingOrganizationName("Pejovic");
   });
 
   it("Archive organization", () => {
-    organization1.achiveOrganization();
-    organization1.verifySuccessfullOrganizationAchiving(
+    organization.achiveOrganization();
+    organization.verifySuccessfullOrganizationAchiving(
       "Archived Organizations",
       "Pejovic"
     );
   });
 
   it("Unarchive organization", () => {
-    organization1.unachiveOrganization();
-    organization1.verifySuccessfullOrganizationUnachiving("Pejovic");
+    organization.unachiveOrganization();
+    organization.verifySuccessfullOrganizationUnachiving("Pejovic");
   });
 
   it("Delete archived organization", () => {
-    organization1.deleteAchivedOrganization("03091992");
-    organization1.verifySuccessfullOrganizationDeleting(
+    organization.deleteAchivedOrganization("03091992");
+    organization.verifySuccessfullOrganizationDeleting(
       "Welcome to the team! Welcome to VivifyScrum!"
     );
   });
 
   it("Open Organization detail page", () => {
-    organization1.openOrganization("Predrag");
-    organization1.verifyOpeningOrganizationDetailPage(
+    organization.openOrganization("Predrag");
+    organization.verifyOpeningOrganizationDetailPage(
       "Active Boards",
       "Add new Board"
     );
